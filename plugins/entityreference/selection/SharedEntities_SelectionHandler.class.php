@@ -1,8 +1,16 @@
 <?php
 /**
+ * @file
+ * ECK shared entities selection handler class.
+ *
+ * Provides a selection handler class allowing for eck entities marked as
+ * shareable to be referenced.
+ */
+
+/**
  * ECK shared entities selection handler.
  */
-class SharedEntities_SelectionHandler extends EntityReference_SelectionHandler_Generic {
+class SharedEntitiesSelectionHandler extends EntityReference_SelectionHandler_Generic {
   /**
    * Implements EntityReferenceHandler::getInstance().
    */
@@ -54,10 +62,11 @@ class SharedEntities_SelectionHandler extends EntityReference_SelectionHandler_G
       foreach ($entities as $entity_id => $entity) {
         list(,, $bundle) = entity_extract_ids($entity_type, $entity);
 
-        // Use shared entity title when available
+        // Use shared entity title when available.
         if (isset($entity->shared_title) && trim($entity->shared_title) !== '') {
           $label = trim($entity->shared_title);
-        } else {
+        }
+        else {
           $label = $this->getLabel($entity);
         }
         $options[$bundle][$entity_id] = check_plain($label);

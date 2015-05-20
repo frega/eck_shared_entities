@@ -1,9 +1,28 @@
 <?php
+/**
+ * @file
+ * ECK shared entities shared title property behavior plugin.
+ *
+ * Provides a text field storing the title for the shared entity so that it can
+ * be easily referenced/searched for.
+ */
+
 $plugin = array(
   'label' => 'Shared Entity Title (required for the shared flag)',
-  'default_widget' => 'eck_shared_entities_shared_entity_title_property_widget'
+  'default_widget' => 'eck_shared_entities_shared_entity_title_property_widget',
 );
 
+/**
+ * Returns array defining shared entity title widget.
+ *
+ * @param string $property
+ *   Name of the property
+ * @param array $vars
+ *   Additional variables passed to property widget.
+ *
+ * @return array
+ *   Return array of defining share entity title widget.
+ */
 function eck_shared_entities_shared_entity_title_property_widget($property, $vars) {
   $entity = $vars['entity'];
   list($id) = entity_extract_ids($entity->entityType(), $entity);
@@ -19,8 +38,8 @@ function eck_shared_entities_shared_entity_title_property_widget($property, $var
     '#states' => array(
       'visible' => array(
         '[data-shared-entity-flag-' . $entity->entityType() . '="' . $id . '"]:input' => array('checked' => TRUE),
-      )
-    )
+      ),
+    ),
   );
 
   return $shared_entity_title_widget;

@@ -1,4 +1,11 @@
 <?php
+/**
+ * @file
+ * ECK shared entities
+ *
+ * ECK shared entities allows entities to be marked a shareable across multiple
+ * host entities.
+ */
 
 /**
  * Implements hook_ctools_plugin_directory().
@@ -28,8 +35,13 @@ function eck_shared_entities_permission() {
       foreach (Bundle::loadByEntityType($entity_type) as $bundle) {
         $permissions += array(
           'edit share flag for ' . $entity_type->name . ' ' . $bundle->name . ' entities' => array(
-            'title' => t('Can edit share flag for ' . $bundle->label . ' entities'),
-            'description' => t('Allow the user to mark ' . $bundle->label . ' (' . $entity_type->label . ') entities as shared.'),
+            'title' => t('Can edit share flag for @bundle_label entities', array(
+              '@bundle_label' => $bundle->label,
+            )),
+            'description' => t('Allow the user to mark @bundle_label (@entity_type_label) entities as shared.', array(
+              '@bundle_label' => $bundle->label,
+              '@entity_type_label' => $entity_type->label,
+            )),
           ),
         );
       }
